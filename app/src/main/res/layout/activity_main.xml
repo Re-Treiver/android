@@ -4,7 +4,13 @@
     android:layout_height="match_parent">
 
     <SurfaceView
-        android:id="@+id/camera_preview"
+        android:id="@+id/cameraView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <TextureView
+        android:id="@+id/camera_preview_textureview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
