@@ -20,7 +20,7 @@ public class FileUploadUtils {
                 .addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.0.151:5000/upload") // 서버 URL은 해당 서버의 IP를 입력 (ipconfig 후 나오는 pc ip주소)
+                .url("http://192.168.158.189:5000/upload") // 서버 URL은 해당 서버의 IP를 입력 (ipconfig 후 나오는 pc ip주소)
                 .post(requestBody)
                 .build();
 
