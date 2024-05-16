@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.MotionEvent;
@@ -18,14 +17,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //예시
+        String ss = stringMakeText("페트병",1,1);
+        textPrint(ss);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -224,5 +225,33 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 finish();
             }
         }
+    }
+
+    public String stringMakeText(String className, int dirtyness, int label) {
+        //className = 쓰레기 종류, dirtyness = 오염도, label = 라벨 유무(오염도와 라벨은 boolean이나 int로 가능할 듯?Yes/No로 가능하니까)
+        String s = "이것은 "+className+"입니다. 오염도는 "+dirtyness+"입니다. 라벨은 "+label+"입니다.\n";
+        if(dirtyness == 1 && label == 0) {
+            String result1 = s+"오염돼 있으므로 세척해 주세요.";
+            return result1;
+        }
+        else if(dirtyness == 0 && label == 1) {
+            String result2 = s+"라벨이 부착돼 있으므로 떼 주세요.";
+            return result2;
+        }
+        else if(dirtyness == 1 && label == 1) {
+            String result3 = s+"오염돼 있으므로 세척해 주세요. 라벨이 부착돼 있으므로 떼 주세요.";
+            return result3;
+        }
+        else {
+            String result4 = s+"쓰레기통에 버려주세요.";
+            return result4;
+        }
+    }
+
+    public void textPrint(String s) {
+        //텍스트뷰 만들어서 글씨 출력
+        TextView ment = findViewById(R.id.textViewPrint);
+        ment.setVisibility(View.VISIBLE);
+        ment.setText(s);
     }
 }

@@ -17,6 +17,13 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your description text here"
+        android:layout_centerInParent="true" />
+
     <Button
         android:id="@+id/uploadButton"
         android:layout_width="wrap_content"
@@ -24,6 +31,22 @@
         android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textViewPrint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="#B3FBF0D0"
+        android:breakStrategy="high_quality"
+        android:enabled="true"
+        android:fontFamily="sans-serif"
+        android:textColor="#429745"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
