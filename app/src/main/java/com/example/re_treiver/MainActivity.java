@@ -1,9 +1,12 @@
 package com.example.re_treiver;
 
-
+import android.content.pm.ActivityInfo;
+import android.speech.tts.TextToSpeech;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.Locale;
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -25,8 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +36,42 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("deprecation")
-public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnTouchListener {
+public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnTouchListener, TextToSpeech.OnInitListener {
+
+    private TextToSpeech tts;
+    private boolean isRepeating = false;
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = tts.setLanguage(Locale.KOREAN);
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                // 언어 데이터가 없거나 지원되지 않을 때의 처리
+            } else {
+                speakOut("화면을 두번 터치하여 촬영을 하세요", true);
+            }
+        } else {
+            // TTS 초기화 실패 시의 처리
+        }
+    }
+
+    private void speakOut(String text, boolean isRepeating) {
+        this.isRepeating = isRepeating;
+        if (isRepeating) {
+            tts.speak(text, TextToSpeech.QUEUE_ADD, null, null);
+        } else {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
+    }
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
     private Camera mCamera;
@@ -48,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tts = new TextToSpeech(this, this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -157,6 +195,9 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
                             // 이미지 파일을 서버로 업로드
                             FileUploadUtils.send2Server(pictureFile);
+
+                            // TTS를 통해 메시지를 출력
+                            speakOut("사진이 촬영되었습니다.", false);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
