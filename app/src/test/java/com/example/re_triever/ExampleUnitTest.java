@@ -1,4 +1,4 @@
-package com.example.re_treiver;
+package com.example.re_triever;
 
 import org.junit.Test;
 

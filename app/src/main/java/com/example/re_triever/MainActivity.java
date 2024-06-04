@@ -1,4 +1,4 @@
-package com.example.re_treiver;
+package com.example.re_triever;
 
 import android.content.pm.ActivityInfo;
 import android.speech.tts.TextToSpeech;
@@ -12,8 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -21,10 +19,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -197,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                             FileUploadUtils.send2Server(pictureFile);
 
                             // TTS를 통해 메시지를 출력
-                            speakOut("사진이 촬영되었습니다.", false);
+                            speakOut("사진이 촬영되었습니다. 플라스틱 쓰레기입니다, 분류해서 버려주세요!", false);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -228,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private File getOutputMediaFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "re_treiver");
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "re_triever");
 
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
@@ -237,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator + "re_treiver_" + timeStamp + ".jpg");
+        return new File(mediaStorageDir.getPath() + File.separator + "re_triever_photos_" + timeStamp + ".jpg");
     }
 
     private Camera openCamera(SurfaceHolder holder) {

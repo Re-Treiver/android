@@ -1,4 +1,4 @@
-package com.example.re_treiver;
+package com.example.re_triever;
 
 import android.util.Log;
 import java.io.File;
@@ -20,7 +20,7 @@ public class FileUploadUtils {
                 .addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.91.189:12345/upload") // 서버 URL은 해당 서버의 IP를 입력 (ipconfig 후 나오는 pc ip주소)
+                .url("http://192.168.0.151:12345/upload") // 서버 URL은 해당 서버의 IP를 입력 (ipconfig 후 나오는 pc ip주소)
                 .post(requestBody)
                 .build();
 

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Re-Treiver"
+rootProject.name = "Re-Triever"
 include ':app'
